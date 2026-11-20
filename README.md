@@ -37,7 +37,7 @@ IDS deployment · Signature writing · Detection engineering & tuning · Alert t
 - **Mode:** IDS (passive), AF_PACKET capture, NIC offloading disabled
 - **Ruleset:** Emerging Threats Open via `suricata-update` + [`rules/local.rules`](rules/local.rules)
 
-![Network](screenshots/01-natnetwork-suricatalab.png)
+![Network](01-natnetwork-suricatalab..png)
 
 ---
 
@@ -57,7 +57,7 @@ Full config: [`configs/suricata.yaml`](configs/suricata.yaml)
 
 | | |
 | --- | --- |
-| ![Version](screenshots/04-suricata-version.png) | ![Engine](screenshots/08-suricata-engine-started.png) |
+| ![Version](04-suricata-version.png) | ![Engine](08-suricata-engine-started.png) |
 
 ---
 
@@ -74,7 +74,7 @@ Full config: [`configs/suricata.yaml`](configs/suricata.yaml)
 | 1000007 | Suspicious DNS (.xyz) | `dns.query` ends with ".xyz" | T1071.004 Application Layer Protocol: DNS |
 | 1000008 | EICAR malware test file | `file.data` contains EICAR string | T1105 Ingress Tool Transfer |
 
-![Rules loaded](screenshots/11-custom-rules-loaded.png)
+![Rules loaded](11-custom-rules-loaded.png)
 
 ---
 
@@ -82,18 +82,18 @@ Full config: [`configs/suricata.yaml`](configs/suricata.yaml)
 
 | # | Attack from Kali | Detected by | Evidence |
 | --- | --- | --- | --- |
-| 1 | `ping -c 4 10.0.20.10` | 1000001 | [screenshot](screenshots/12-attack1-icmp-detected.png) |
-| 2 | `sudo nmap -sS -T4 10.0.20.10` | 1000002 | [screenshot](screenshots/13b-attack2-nmap-syn-detected.png) |
-| 3 | `nmap -sV -sC -p 80 10.0.20.10` | 1000003 | [screenshot](screenshots/14b-attack3-nmap-nse-detected.png) |
-| 4 | `hydra -l testuser -P pass.txt ssh://10.0.20.10` | 1000004 | [screenshot](screenshots/15b-attack4-ssh-bruteforce-detected.png) |
-| 5 | `nikto -h http://10.0.20.10` | 1000005 | [screenshot](screenshots/16c-attack5-nikto-detected.png) |
-| 6 | `curl ".../index.php?id=1%20UNION%20SELECT..."` | 1000006 | [screenshot](screenshots/17b-attack6-sqli-detected.png) |
-| 7 | `dig malware-c2-test.xyz` | 1000007 | [screenshot](screenshots/18b-attack7-dns-detected.png) |
-| 8 | Download `eicar.com.txt` from Kali's Python server | 1000008 | [screenshot](screenshots/19-attack8-eicar-detected.png) |
+| 1 | `ping -c 4 10.0.20.10` | 1000001 | [screenshot](12-attack1-icmp-detected.png) |
+| 2 | `sudo nmap -sS -T4 10.0.20.10` | 1000002 | [screenshot](13-attack2-nmap-syn-detected.png) |
+| 3 | `nmap -sV -sC -p 80 10.0.20.10` | 1000003 | [screenshot](14b-attack3-nmap-nse-detected.png) |
+| 4 | `hydra -l testuser -P pass.txt ssh://10.0.20.10` | 1000004 | [screenshot](15b-attack4-ssh-bruteforce-detected.png) |
+| 5 | `nikto -h http://10.0.20.10` | 1000005 | [screenshot](16c-attack5-nikto-detected.png) |
+| 6 | `curl ".../index.php?id=1%20UNION%20SELECT..."` | 1000006 | [screenshot](17b-attack6-sqli-detected.png) |
+| 7 | `dig malware-c2-test.xyz` | 1000007 | [screenshot](18b-attack7-dns-detected.png) |
+| 8 | Download `eicar.com.txt` from Kali's Python server | 1000008 | [screenshot](19-attack8-eicar-detected.png) |
 
 **Attack timeline (first hit per detection, from `eve.json`):**
 
-![Timeline](screenshots/21-hunt2-local-alert-timeline.png)
+![Timeline](21-hunt2-local-alert-timeline.png)
 
 ---
 
@@ -103,7 +103,7 @@ Full config: [`configs/suricata.yaml`](configs/suricata.yaml)
 
 | Before | After |
 | --- | --- |
-| ![Before](screenshots/16c-attack5-nikto-detected.png) | ![After](screenshots/16d-attack5-nikto-tuned.png) |
+| ![Before](16c-attack5-nikto-detected.png) | ![After](16d-attack5-nikto-tuned.png) |
 
 **2. False positive: SSH brute force.** The first SSH alert came from `nmap -sV` banner grabbing, not Hydra. Connection-count rules need host-log correlation (failed logins in `journalctl -u ssh`) to confirm.
 
@@ -119,7 +119,7 @@ All queries: [`hunts/jq-queries.md`](hunts/jq-queries.md)
 
 **Community ID pivot.** From one EICAR alert, the Community ID linked **5 events** of the same conversation: the HTTP request (`/eicar.com.txt`, curl, HTTP 200), 2 alerts (custom EICAR + ET Python SimpleHTTP server), the extracted file record and the flow summary.
 
-![Community ID pivot](screenshots/26-hunt7-community-id-pivot.png)
+![Community ID pivot](26-hunt7-community-id-pivot.png)
 
 ---
 
@@ -156,8 +156,8 @@ sudo suricata -c /etc/suricata/suricata.yaml -r 2026-11-10-traffic-analysis-exer
 
 | | |
 | --- | --- |
-| ![Alerts](screenshots/29-pcap-alerts-and-infected-host.png) | ![Beacon](screenshots/32-pcap-c2-beacon.png) |
-| ![Download](screenshots/30-pcap-initial-download.png) | ![Identity](screenshots/33-pcap-victim-identity.png) |
+| ![Alerts](29-pcap-alerts-and-infected-host.png) | ![Beacon](32-pcap-c2-beacon.png) |
+| ![Download](30-pcap-initial-download.png) | ![Identity](33-pcap-victim-identity.png) |
 
 ### MITRE ATT&CK (PCAP)
 
@@ -208,7 +208,7 @@ sudo suricata -c /etc/suricata/suricata.yaml -r 2026-11-10-traffic-analysis-exer
 ├── hunts/jq-queries.md           # all threat-hunting queries
 ├── evidence/lab-local-alerts.tsv # custom-rule alerts from the live lab
 ├── evidence/pcap-alert-summary.txt
-└── screenshots/                  # 01–33 evidence screenshots
+└── *.png                         # 01–33 evidence screenshots (repo root)
 ```
 
 > ⚠️ All attacks were performed in an isolated home lab against machines I own. The malware PCAP was analysed offline inside a VM and is not redistributed here.
