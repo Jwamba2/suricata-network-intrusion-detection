@@ -1,0 +1,8 @@
+    125 3 | ET REMOTE_ACCESS NetSupport Remote Admin Checkin
+    125 2 | ET INFO HTTP traffic on port 443 (POST)
+      2 3 | ET REMOTE_ACCESS NetSupport Remote Admin Response
+      2 2 | LOCAL Possible Nmap SYN port scan
+      1 3 | ET INFO Windows Powershell User-Agent Usage
+      1 3 | ET INFO Packed Executable Download
+      1 3 | ET INFO Observed WindowsPowerShell/5.1 User Agent Usage
+      1 3 | ET INFO Microsoft Connection Test
