@@ -1,4 +1,4 @@
-# 🛡️ Network Intrusion Detection with Suricata
+# Network Intrusion Detection with Suricata
 
 **Author:** Wamba José · **Role:** SOC Analyst portfolio project · **Date:** November 2026
 
@@ -8,7 +8,7 @@
 
 ---
 
-## 📌 Key results
+##  Key results
 
 | Metric | Result |
 | --- | --- |
@@ -20,13 +20,13 @@
 
 ---
 
-## 🧰 Skills demonstrated
+## Skills demonstrated
 
 IDS deployment · Signature writing · Detection engineering & tuning · Alert triage · False-positive analysis · EVE JSON hunting with `jq` · Community ID pivoting · PCAP forensics · MITRE ATT&CK mapping · Linux networking troubleshooting
 
 ---
 
-## 🏗️ Lab architecture
+## Lab architecture
 
 | VM | Role | IP | Notes |
 | --- | --- | --- | --- |
@@ -41,7 +41,7 @@ IDS deployment · Signature writing · Detection engineering & tuning · Alert t
 
 ---
 
-## ⚙️ Setup summary
+##  Setup summary
 
 ```bash
 sudo add-apt-repository -y ppa:oisf/suricata-stable && sudo apt install -y suricata jq
@@ -61,7 +61,7 @@ Full config: [`configs/suricata.yaml`](configs/suricata.yaml)
 
 ---
 
-## 🎯 Custom detection rules
+## Custom detection rules
 
 | SID | Detects | Logic | MITRE ATT&CK |
 | --- | --- | --- | --- |
@@ -78,7 +78,7 @@ Full config: [`configs/suricata.yaml`](configs/suricata.yaml)
 
 ---
 
-## ⚔️ Attack simulation & detections
+## Attack simulation & detections
 
 | # | Attack from Kali | Detected by | Evidence |
 | --- | --- | --- | --- |
@@ -97,7 +97,7 @@ Full config: [`configs/suricata.yaml`](configs/suricata.yaml)
 
 ---
 
-## 🔧 Detection engineering: tuning & false positives
+## Detection engineering: tuning & false positives
 
 **1. Alert flood → tuned.** Rule 1000005 fired **5,279 times in 30 seconds** for a single Nikto scan. Adding `threshold:type limit, track by_src, count 1, seconds 60` reduced it to **1 actionable alert**, with no loss of detection.
 
@@ -113,7 +113,7 @@ Full config: [`configs/suricata.yaml`](configs/suricata.yaml)
 
 ---
 
-## 🔎 Threat hunting in EVE JSON
+## Threat hunting in EVE JSON
 
 All queries: [`hunts/jq-queries.md`](hunts/jq-queries.md)
 
@@ -123,7 +123,7 @@ All queries: [`hunts/jq-queries.md`](hunts/jq-queries.md)
 
 ---
 
-## 🦠 Case study: NetSupport RAT infection (real PCAP)
+## Case study: NetSupport RAT infection (real PCAP)
 
 **Source:** malware-traffic-analysis.net, 2026-11-10 exercise "The Lucky Turkey" (PCAP not included in this repo: it contains live malware).
 
@@ -178,7 +178,7 @@ sudo suricata -c /etc/suricata/suricata.yaml -r 2026-11-10-traffic-analysis-exer
 
 ---
 
-## 📚 Lessons learned
+## Lessons learned
 
 1. Untuned rules create alert floods; thresholds are part of the rule, not an afterthought.
 2. Always triage the **first** alert: it may come from a different tool than expected.
@@ -190,7 +190,7 @@ sudo suricata -c /etc/suricata/suricata.yaml -r 2026-11-10-traffic-analysis-exer
 
 ---
 
-## 🚀 Future improvements
+## Future improvements
 
 - Forward `eve.json` to **Splunk / Wazuh** and build a detection dashboard
 - Add **Zeek** alongside Suricata and correlate on Community ID
@@ -199,7 +199,7 @@ sudo suricata -c /etc/suricata/suricata.yaml -r 2026-11-10-traffic-analysis-exer
 
 ---
 
-## 📁 Repository structure
+## Repository structure
 
 ```
 ├── README.md
@@ -211,4 +211,4 @@ sudo suricata -c /etc/suricata/suricata.yaml -r 2026-11-10-traffic-analysis-exer
 └── *.png                         # 01–33 evidence screenshots (repo root)
 ```
 
-> ⚠️ All attacks were performed in an isolated home lab against machines I own. The malware PCAP was analysed offline inside a VM and is not redistributed here.
+> All attacks were performed in an isolated home lab against machines I own. The malware PCAP was analysed offline inside a VM and is not redistributed here.
